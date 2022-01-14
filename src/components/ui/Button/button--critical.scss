@@ -1,0 +1,18 @@
+.button {
+    padding: 8px 16px;
+    border: 0;
+
+    &--theme {
+        &-primary {
+            background-color: #3c3fea;
+        }
+
+        &-secondary {
+            background-color: #8a8a8a;
+        }
+
+        &-accent {
+            background-color: #ff2424;
+        }
+    }
+}
