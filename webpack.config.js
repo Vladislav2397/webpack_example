@@ -10,7 +10,7 @@ module.exports = {
     },
     output: {
         path: __dirname + '/dist',
-        chunkFilename: 'js/[id].chunk.js',
+        chunkFilename: 'js/chunk.[id].min.js',
     },
     resolve: {
         extensions: [
@@ -93,8 +93,8 @@ module.exports = {
             template: "./public/index.html",
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].min.[hash].css',
-            chunkFilename: 'css/[hash].css',
+            filename: 'css/[name].[hash].min.css',
+            chunkFilename: 'css/chunk.[hash].min.css',
             insert: linkTag => {
                 document.body.appendChild(linkTag)
             },
