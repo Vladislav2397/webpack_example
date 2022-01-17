@@ -1,13 +1,16 @@
 const VueLoaderPlugin = require('vue-loader-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const path = require("path");
+const path = require("path")
 
 module.exports = {
-    mode: 'development',
-    entry: './src/main.js',
+    mode: 'production',
+    entry: {
+        app: './src/main.js',
+    },
     output: {
-        path: __dirname + '/dist'
+        path: __dirname + '/dist',
+        chunkFilename: 'js/[id].js',
     },
     resolve: {
         extensions: [
@@ -30,14 +33,6 @@ module.exports = {
                 }
             },
             {
-                test: /main\.scss/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
-                ]
-            },
-            {
                 test: /critical\.scss$/,
                 use: [
                     'style-loader',
@@ -46,13 +41,13 @@ module.exports = {
                 ]
             },
             {
-                test: /(?<!critical|main)\.scss$/,
+                test: /\.scss$/,
+                exclude: /critical\.scss/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'debug-loader',
                     'sass-loader',
-                ]
+                ],
             },
             {
                 test: /\.pug$/,
@@ -76,16 +71,34 @@ module.exports = {
             }
         ]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: "styles",
+                    type: "css/mini-extract",
+                    chunks: "all",
+                    enforce: true,
+                },
+            },
+        }
+    },
+    devtool: 'inline-source-map',
     devServer: {
         static: path.resolve(__dirname, 'public'),
         port: 1024,
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./public/index.html"
+            template: "./public/index.html",
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].min.css'
+            filename: 'css/[name].min.[hash].css',
+            chunkFilename: 'css/[hash].css',
+            insert: (linkTag) => {
+                console.log('========== extract CSS ==========', linkTag)
+                document.body.appendChild(linkTag)
+            }
         }),
         new VueLoaderPlugin(),
     ]
