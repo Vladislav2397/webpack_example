@@ -10,7 +10,7 @@ module.exports = {
     },
     output: {
         path: __dirname + '/dist',
-        chunkFilename: 'js/[id].js',
+        chunkFilename: 'js/[id].chunk.js',
     },
     resolve: {
         extensions: [
@@ -95,10 +95,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].min.[hash].css',
             chunkFilename: 'css/[hash].css',
-            insert: (linkTag) => {
-                console.log('========== extract CSS ==========', linkTag)
+            insert: linkTag => {
                 document.body.appendChild(linkTag)
-            }
+            },
         }),
         new VueLoaderPlugin(),
     ]
