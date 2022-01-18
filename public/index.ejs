@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%= htmlWebpackPlugin.tags.headTags.filter(
+        tag => !( /min\.css/.test(tag.attributes.href) )
+    ) %>
+    <title>Title</title>
+</head>
+<body>
+    <div id="app"></div>
+    <%= htmlWebpackPlugin.tags.headTags.find(tag => /min\.css/.test(tag.attributes.href)) %>
+    <%= htmlWebpackPlugin.tags.bodyTags %>
+</body>
+</html>

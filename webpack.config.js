@@ -89,15 +89,15 @@ module.exports = {
         port: 1024,
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./public/index.html",
-        }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[hash].min.css',
-            chunkFilename: 'css/chunk.[hash].min.css',
-            insert: linkTag => {
-                document.body.appendChild(linkTag)
+        }),
+        new HtmlWebpackPlugin({
+            template: "./public/index.ejs",
+            meta: {
+                'charset': 'utf-8'
             },
+            inject: false,
         }),
         new VueLoaderPlugin(),
     ]
