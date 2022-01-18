@@ -8,6 +8,10 @@ const router = new VueRouter({
         {
             path: '/',
             component: () => import('@/components/pages/Index.vue')
+        },
+        {
+            path: '/about',
+            component: () => import('@/components/pages/About.vue')
         }
     ],
     mode: 'history',

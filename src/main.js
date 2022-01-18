@@ -1,8 +1,15 @@
 import Vue from 'vue'
-import App from './App'
 import router from './router/index.ts'
+import Button from '@/components/ui/Button/Button'
 
-new Vue({
-    render: h => h(App),
-    router
-}).$mount('#app')
+Vue.component('button-component', Button)
+
+let App
+
+import('./App.vue').then(app => {
+
+    new Vue({
+        render: h => h(app.default),
+        router
+    }).$mount('#app')
+})
