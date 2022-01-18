@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <%= htmlWebpackPlugin.tags.headTags.forEach(tag => { console.log(tag)}) %>
     <title>Title</title>
 </head>
 <body>
     <div id="app"></div>
+    <%= htmlWebpackPlugin.tags.bodyTags %>
 </body>
 </html>

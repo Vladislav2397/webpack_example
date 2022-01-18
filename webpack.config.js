@@ -1,5 +1,6 @@
 const VueLoaderPlugin = require('vue-loader-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require("path")
 
@@ -89,15 +90,13 @@ module.exports = {
         port: 1024,
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./public/index.html",
-        }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[hash].min.css',
-            chunkFilename: 'css/chunk.[hash].min.css',
-            insert: linkTag => {
-                document.body.appendChild(linkTag)
-            },
+            insert: '#app'
+        }),
+        new HtmlWebpackPlugin({
+            template: "./public/index.html",
+            inject: false,
         }),
         new VueLoaderPlugin(),
     ]
